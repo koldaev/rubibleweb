@@ -4,7 +4,7 @@ MAINTAINER Maksim Koldaev <mail@koldaev.com>
 
 RUN mkdir /soft
 
-ADD ./testdobroin.sql /soft/testdobroin.sql 
+ADD ./testdobroin.tar.gz /soft/testdobroin.tar.gz
 
 # Install
 RUN  \
@@ -30,7 +30,7 @@ RUN \
   echo "mysqld_safe &" > /tmp/config && \
   echo "mysqladmin --silent --wait=30 ping || exit 1" >> /tmp/config && \
   echo "mysqladmin create testdobroin || exit 1" >> /tmp/config && \
-  echo "mysql testdobroin < /soft/testdobroin.sql  || exit 1" >> /tmp/config && \
+  echo "mysql testdobroin < /soft/testdobroin.tar.gz/testdobroin.sql  || exit 1" >> /tmp/config && \
   echo "mysqlcheck --check-upgrade --all-databases --auto-repair -u root  || exit 1" >> /tmp/config && \
   echo "mysql_upgrade --force -u root -p || exit 1" >> /tmp/config && \
   echo "mysql -e 'GRANT ALL PRIVILEGES ON *.* TO \"root\"@\"%\" WITH GRANT OPTION;'" >> /tmp/config && \
